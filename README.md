@@ -17,10 +17,5 @@ Verificar el usuario pidiendo el número de PIN
 
 En caso de que la verificación sea negativa, cerrar sesión al usuario
 
-En caso de verificación positiva, mostrar varias opciones, incuyendo disponibilidad de efectivo, cinco transacciones recientes y retirada de efectivo
+En caso de verificación positiva, mostrar varias opciones, incuyendo ingresar efectivo, consultar saldo , retirada de efectivo y salir.
 
-Dar la posibilidad al usuario de retirar hasta 1000€ en efectivo en cada transacción hasta un total de transacciones límite de 10 al día
-
-
-
-Lista de los objetivos que se persiguen con el trabajo propuesto.
