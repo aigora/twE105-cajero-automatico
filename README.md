@@ -17,5 +17,5 @@ Verificar el usuario pidiendo el número de PIN
 
 En caso de que la verificación sea negativa, cerrar sesión al usuario
 
-En caso de verificación positiva, mostrar varias opciones, incuyendo ingresar efectivo, consultar saldo ,cambiar pin, retirada de efectivo y salir.
+En caso de verificación positiva, mostrar varias opciones, incuyendo ingresar efectivo, consultar saldo ,cambiar pin , retirada de efectivo y salir.
 
