@@ -1,6 +1,6 @@
 # Cajero automatico
 
-Descripción breve del proyecto a realizar (2-3 frases).
+programa en codigo c de la simulación de un cajero automatico
 
 ## Integrantes del equipo
 
