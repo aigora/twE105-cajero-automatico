@@ -1,4 +1,3 @@
-//este es el menu de nuestro programa:
 #include <stdio.h>
 int main()
 {
@@ -38,3 +37,6 @@ int main()
 		 break;
 	 }
 }
+
+
+
