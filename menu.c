@@ -6,8 +6,10 @@ int main()
     int operacion;
     int p,pi,np,cp,intentos=0;
     //sea p el pin de la tarjeta, pi el pin introducido, sea np nuevo pin, sea cp cambio de pin, intentos.
-    int cantidad1;
-    printf ("Introduzca la tarjeta\n");
+    //he asignado cantidad1 a la cantidad de dinero que desea retirar y cantidad2 a la cantidad de dinero que se desea ingresar.
+    int cantidad1,cantidad2; 
+	float saldo; 
+	printf ("Introduzca la tarjeta\n");
     scanf ("%i",&t1);
     //introduce el pin y en caso de que sea incorrecto tiene 3 oportunidades y sino lo acierta fin del programa.
     {
@@ -36,27 +38,28 @@ int main()
 		 
 		 break; 
 		case `b`:
-		 printf ("Escriba la cantidad de dinero que desee ingresar");
-		 scanf("%i",&ingreso);
+					 printf ("Escriba la cantidad de dinero que desee ingresar");
+					 scanf("%i",&cantidad2);
+					 printf("Ingreso realizado con exito");
+					 saldo=saldo+cantidad2;
+					 printf("su nuevo saldo es %.3f",saldo);
 		 break; 
 		case `c`;
-		printf ("Escriba su pin actual");
-		 scanf("%d",&pinintroducido);
-		 if (p1=pintroducido)
-		  {
-			printf ("Introduzca su nuevo pin");
-			scanf("%i",&nuevopin);
-		  }
-	     else
-		 {
-			printf ("Pin incorrecto,vuelva a intentarlo.");
-		 }
+				     do{ 
+					printf("Escriba su pin actual"); 
+					scanf("%d", &pin); 
+					if(pin==pintarjeta) 
+						printf("Introduzca su nuevo pin");
+						scanf("%d",%np);
+						pintarjeta=np;
+						printf("Su codigo pin se ha cambiado con exito");
+					intentos++;  
+					}while (intentos<3 && pin!=pintarjeta);
 		 break; 
 		case `d`;
-		printf ("Su saldo actual a dia de hoy es:");
+					printf ("Su saldo actual a dia de hoy es %.3f",saldo);
 		 break;
 		case `e`:
-		 printf("No olvide coger su recibo y su tarjeta");
 		 break;
 	 }
 }
