@@ -1,11 +1,20 @@
 #include <stdio.h>
+
+
+typedef struct{
+	char nombrecliente;
+	int numerotarjeta,pintarjeta;
+	float saldo;
+}tarjeta;
+
+
 int main()
 {
 	// sea a sacar efectivo,b ingresar efectivo,c cambiar el pin,d consultar saldo y e salir 
     int a,b,c,d,e;
     int operacion;
-    int p,pi,np,cp,intentos=0;
-    //sea p el pin de la tarjeta, pi el pin introducido, sea np nuevo pin, sea cp cambio de pin, intentos.
+    int pintarjeta,pin,np,cp,intentos=0;
+    //sea pintarjeta el pin de la tarjeta, pin el pin introducido, sea np nuevo pin, sea cp cambio de pin, intentos.
     //he asignado cantidad1 a la cantidad de dinero que desea retirar y cantidad2 a la cantidad de dinero que se desea ingresar.
     int cantidad1,cantidad2; 
 	float saldo; 
@@ -35,6 +44,7 @@ int main()
 					printf("Procedamos a la retirada.");
 					intentos++;  
 					}while (intentos<3 && cantidad1>saldo);
+			saldo=saldo-cantidad1;		
 		 
 		 break; 
 		case `b`:
@@ -43,16 +53,19 @@ int main()
 					 printf("Ingreso realizado con exito");
 					 saldo=saldo+cantidad2;
 					 printf("su nuevo saldo es %.3f",saldo);
+					 
 		 break; 
 		case `c`;
 				     do{ 
 					printf("Escriba su pin actual"); 
 					scanf("%d", &pin); 
 					if(pin==pintarjeta) 
+					    {
 						printf("Introduzca su nuevo pin");
 						scanf("%d",%np);
 						pintarjeta=np;
 						printf("Su codigo pin se ha cambiado con exito");
+						}
 					intentos++;  
 					}while (intentos<3 && pin!=pintarjeta);
 		 break; 
@@ -60,6 +73,7 @@ int main()
 					printf ("Su saldo actual a dia de hoy es %.3f",saldo);
 		 break;
 		case `e`:
+					printf("¡Hasta pronto!");
 		 break;
 	 }
 }
