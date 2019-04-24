@@ -9,17 +9,17 @@ int main()
     scanf("%i",&p1);
 	switch (t1) 
 		{ 
-		case `saldo`: 
+		case `s`: 
 		 printf ("Su saldo actual a dia de hoy es:");
 		 break; 
-		case `ingreso`:
+		case `i`:
 		 printf ("Escriba la cantidad de dinero que desee ingresar");
 		 scanf("%i",&ingreso);
 		 break; 
-		case `retirada`;
+		case `r`;
 		 printf ("Escriba la cantidad de dinero que desee retirar:");
 		 break; 
-		case `cambiopin`;
+		case `c`;
 		 printf ("Escriba su pin actual");
 		 scanf("%d",&pinintroducido);
 		 if (p1=pintroducido)
