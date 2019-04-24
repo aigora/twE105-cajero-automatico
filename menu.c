@@ -1,4 +1,5 @@
 #include <stdio.h>
+#define N 100
 
 
 typedef struct{
@@ -16,11 +17,54 @@ int main()
     int pintarjeta,pin,np,cp,intentos=0;
     //sea pintarjeta el pin de la tarjeta, pin el pin introducido, sea np nuevo pin, sea cp cambio de pin, intentos.
     //he asignado cantidad1 a la cantidad de dinero que desea retirar y cantidad2 a la cantidad de dinero que se desea ingresar.
-    int cantidad1,cantidad2; 
-	float saldo; 
+    int cantidad1,cantidad2;
+	int clic=0; 
+	float saldo;
+	tarjeta clientes[N]; 
 	printf ("Introduzca la tarjeta\n");
-    scanf ("%i",&t1);
+    scanf ("%i",&numerotarjeta);
+    FILE *clientesdelbanco;
     //introduce el pin y en caso de que sea incorrecto tiene 3 oportunidades y sino lo acierta fin del programa.
+    clientesdelbanco = fopen("clientesdelbanco.txt","r");
+	if(clientesdelbanco==NULL)
+	{
+		printf("No se puedo abrir correctamente el fichero\n");
+		return -1;
+	}
+	else
+	{
+		while(fscanf(clientesdelbanco,"%i  %s[^\n]\t %i\t %i\t  %.2f\t" ,
+		&clic,clientes[clic].nombrecliente,&clientes[clic].numerotarjeta,&clientes[clic].pintarjeta,&clientes[clic].saldo)!=EOF)
+		{
+			clic++;
+			if(clic!=0)
+			{
+				clic=clic-1;
+			}
+		}
+	}
+
+	fclose(clientesdelbanco);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     {
     do{ 
 			printf("Introduzca el pin: "); 
