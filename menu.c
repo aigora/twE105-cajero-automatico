@@ -19,11 +19,21 @@ int main()
     //sea pintarjeta el pin de la tarjeta, pin el pin introducido, sea np nuevo pin, sea cp cambio de pin, intentos.
     //he asignado cantidad1 a la cantidad de dinero que desea retirar y cantidad2 a la cantidad de dinero que se desea ingresar.
     int cantidad;
+    int pintarjeta,pin,np,cp,intentos=0,i;
+    //sea pintarjeta el pin de la tarjeta, pin el pin introducido, sea np nuevo pin, sea cp cambio de pin, intentos.
+    //he asignado cantidad1 a la cantidad de dinero que desea retirar y cantidad2 a la cantidad de dinero que se desea ingresar.
+    int cantidad1,cantidad2;
 	int clic=0,compara; 
 	float saldo;
 	char nombredelcliente[17];
 	tarjeta clientes[N]; 
     FILE *clientesdelbanco;
+
+	printf ("Introduzca la tarjeta\n");
+    scanf ("%i",&numerotarjeta);
+    FILE *clientesdelbanco;
+    //introduce el pin y en caso de que sea incorrecto tiene 3 oportunidades y sino lo acierta fin del programa.
+
     clientesdelbanco = fopen("clientesdelbanco.txt","r");
 	if(clientesdelbanco==NULL)
 	{
@@ -46,7 +56,13 @@ int main()
 	fclose(clientesdelbanco);
 	printf("Iniciar sesion:\n");
     if(clic==0)
+
 						printf("No hay ningun cliente registrado en el banco.");
+
+					{
+						printf("No hay ningun cliente registrado en el banco.");
+						break;
+					}
 					else
 					{
 					clientesdelbanco=fopen("clientesdelbanco.txt","r");
@@ -72,6 +88,10 @@ int main()
 										{
 										printf("El usuario es correcto.\n");
 										nombre=i;
+									compara=strcmp(nombredelcliente,clientes[i].nombre);
+										if(compara==0)
+										{
+										printf("El usuario es correcto.\n");
 										break;
 										}
 										else if(i==clic-1)
@@ -81,6 +101,8 @@ int main()
 									}
 								}while(compara==1||compara==-1);
 							    do{     //introduce el pin y en caso de que sea incorrecto tiene 3 oportunidades y sino lo acierta fin del programa.
+
+							    do{ 
 										printf("Introduzca el pin: "); 
 										scanf("%d", &pin); 
 										if(pin==pintarjeta) 
@@ -91,11 +113,16 @@ int main()
 
 							}while(fscanf(clientesdelbanco,"%i  %s\t%i\t%i\t%f\t",&clientes[clic].nombrecliente,clientes[clic].numerotarjeta,&clientes[clic].pintarjeta,&clientes[clic].saldo)!=EOF);
 
+							fclose(registro);
+
+							}while(fscanf(registro,"%i  %s\t%i\t%i\t%f\t",&cont1,usuarios[cont1].nombre,&usuarios[cont1].DNI,&usuarios[cont1].pin,&usuarios[cont1].dinero)!=EOF);
+
 						}
 					}	
     do{
 
 	printf("Seleccione si desea sacar efectivo(a),ingresar efectivo(b),cambiar el pin(c),consultar saldo(d) o salir(e)");
+
 	scanf("%i",&operacion);
 
 	switch (operacion) 
@@ -158,11 +185,18 @@ int main()
 			break;
 			}
 		 default:
+
+					printf("¡Hasta pronto!");
+		 break;
+		 default:
+
 				printf("Opcion incorrecta\n");
 		}
 
 	}while(opcion!=6);
-	
+
+	 }
+
 }
 
 
