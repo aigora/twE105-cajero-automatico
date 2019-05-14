@@ -12,8 +12,7 @@
 
 typedef struct{
 	char nombrecliente[N];
-	int numerotarjeta,pintarjeta;
-	float saldo;
+	int numerotarjeta,pintarjeta,saldo;
 }tarjeta;
 
 
@@ -24,8 +23,10 @@ int main()
 	float retirada;
 	float ingreso;
 	float cantidad;
+	int numcliente=0;//para guardar el cliente que ha entrado en el banco
 	int nt;//numero de tarjeta introducido por el usuario al iniciar sesion.
 	int comparar;
+	int comparar2;
 	int nuevopin,np,pin;
 	char operacion;
 	char sn;
@@ -41,7 +42,7 @@ int main()
 	}
 	else
 	{
-		while(fscanf(pf,"%s[^\n]\t %i\t %i\t  %.2f\t" ,clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
+		while(fscanf(pf,"%[^\t]\t%d\t%d\t%d\n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
 		{
 			j++;
 		}
@@ -53,27 +54,44 @@ int main()
 	do{
 	printf("Introduce el numero de tu tarjeta.\n");
 	scanf("%d",&nt);
-	for(k=0;k<20;i++)
+	for(k=0;k<12;k++)
 		{
-		comparar=strcmp(nt,clientes[k].numerotarjeta);
-		if(comparar==0){
+	
+		if(nt==clientes[k].numerotarjeta)
+		{
+			comparar=1;
+			numcliente=k;
 		printf("El numero de tarjeta es correcto.\n");	
 		}
 		}
+	if(comparar==0)
+		{
+			printf("El numero de tarjeta es incorrecto.");
+		}
 	intentos++;	
-	}while(intentos<3 && nt!=clientes[k].numerotarjeta);
+	}while(intentos<3 && comparar==0);
 	//le pedimos el pin al usuario y tiene tres intentos para introducirlo correctamente.
 	do{ 
-			printf("Introduzca el pin: "); 
+			printf("Introduzca el pin:\n "); 
 			scanf("%d", &pin); 
-			if(pin==clientes[i].pintarjeta) 
-			printf("\n El pin es correcto.Bienvenido.\n");
-			intentos++;  
-			}while (intentos<3 && pin!=clientes[i].pintarjeta);
+			if(pin==clientes[numcliente].pintarjeta)
+			{
+				comparar2=1;
+			printf("\n El pin es correcto.\n");
+			printf("Bienvenido.\n");
+		    } 
+		    intentos++;
+			}while (intentos<4 && comparar2==0);
+			if(comparar2==0)
+			{
+				printf("Ha superado el numero de intentos.\n");
+				printf("Vuelva a intentarlo mas tarde.\n");
+				return 0;
+			}
 	
 	//menu	
-	system ("cls");
-	printf("---------MENU--------");
+	system("cls");
+	printf("---------MENU--------\n");
 
 	printf("Elige su opcion:\n\n");
 
@@ -150,7 +168,7 @@ int main()
 					i=0;
 					while(i<j)
 					{
-						fprintf(pf,"%i  %s\t%i\t%i\t%.3f\n",i+1,clientes[i].nombrecliente,&clientes[i].numerotarjeta,&clientes[i].pintarjeta,&clientes[i].saldo);
+						fprintf(pf,"%i  %[^\t]\t%d\t%d\t%d\n",i+1,clientes[i].nombrecliente,&clientes[i].numerotarjeta,&clientes[i].pintarjeta,&clientes[i].saldo);
 						i++;
 					}
 					fclose(pf);
