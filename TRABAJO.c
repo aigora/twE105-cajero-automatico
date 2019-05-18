@@ -18,7 +18,7 @@ typedef struct{
 
 float saldoTarjeta(float retirada,float ingreso,float saldoactual);
 
-float Tranferencia(float saldoemisor,float saldoreceptor,float transf);
+float transferencia(float saldoemisor,float saldoreceptor,float transf);
 
 int main()
 {
@@ -26,7 +26,7 @@ int main()
 	
 	float retirada;
 	float ingreso;
-	float cantidad;
+	float cantidad, cantidad2;
 	int numcliente=0;//para guardar el cliente que ha entrado en el banco
 	int nt;//numero de tarjeta introducido por el usuario al iniciar sesion.
 	int comparar;
@@ -35,8 +35,9 @@ int main()
 	int clienreceptor=0;//para guardar al cliente al que se le va a realizar la tranferencia
 	int nuevopin,np,pin;
 	char operacion;
-	char sn;
-	int intentos=0;
+	int sn;
+	int pin2;
+	int intentos=0,intentos2=0;
 	int i=0,j=0,k;
 	tarjeta clientes[N];
 	FILE *pf;//puntero para el fichero
@@ -48,7 +49,7 @@ int main()
 	}
 	else
 	{
-		while(fscanf(pf,"%[^\t]\t%d\t%d\t%f\n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
+		while(fscanf(pf,"%[^;];%d;%d;%f\n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
 		{
 			j++;
 		}
@@ -72,7 +73,7 @@ int main()
 		}
 	if(comparar==0)
 		{
-			printf("El numero de tarjeta es incorrecto.");
+			printf("El numero de tarjeta es incorrecto.\n");
 		}
 	intentos++;	
 	}while(intentos<3 && comparar==0);
@@ -87,13 +88,15 @@ int main()
 			printf("Bienvenido.\n");
 		    } 
 		    intentos++;
-			}while (intentos<4 && comparar2==0);
+			}while (intentos<3 && comparar2==0);
 		if(comparar2==0)
 			{
 				printf("Ha superado el numero de intentos.\n");
 				printf("Vuelva a intentarlo mas tarde.\n");
 				return 0;
 			}
+	//este do-while lo he puesto para que tras cada operacion menos la opcion salir me de la posibilidad de realizar otra operacion.
+	do{
 	
 	//menu	
 	system("cls");
@@ -109,7 +112,7 @@ int main()
 
 	printf("4-Consultar saldo actual:\n");
 	
-	printf("5-Realizar una tranaferencia:\n");
+	printf("5-Realizar una transferencia:\n");
 
 	printf("6-Salir:\n");
 
@@ -130,49 +133,60 @@ int main()
 				    }
 			intentos++;  
 			}while (intentos<3 && cantidad>clientes[i].saldo);
+			// en las 5 primeras opciones del menu hemos puesto la opcion de realizar otra 
+			//operacion con un do-while.
+			printf("¿Desea realizar otra operacion?\n");
+			printf("Teclee 0 si desea realizar otra operacion\n");
+			printf("en caso contrario pulse 1.\n");
+			scanf("%d",&sn);
 		break;
 		case 2:
 			
 			printf ("Escriba la cantidad de dinero que desee ingresar:\n");
-			scanf("%i",&cantidad);
+			scanf("%f",&cantidad2);
 			printf("Ingreso realizado con exito.\n");
-                clientes[numcliente].saldo=saldoTarjeta(0,cantidad,clientes[numcliente].saldo);
-			printf("su nuevo saldo es %.3f",clientes[numcliente].saldo);
+                clientes[numcliente].saldo=saldoTarjeta(0,cantidad2,clientes[numcliente].saldo);
+			printf("Su nuevo saldo es %.2f\n",clientes[numcliente].saldo);
+			printf("¿Desea realizar otra operacion?\n");
+			printf("Teclee 0 si desea realizar otra operacion\n");
+			printf("en caso contrario pulse 1.\n");
+			scanf("%d",&sn);
 						
 		break;
 		case 3:
 			do{ 
 				printf("Escriba su pin actual.\n"); 
-				scanf("%d", &pin); 
-					if(pin==clientes[numcliente].pintarjeta) 
+				scanf("%i", &pin2); 
+					if(pin2==clientes[numcliente].pintarjeta) //en caso de que los dos pines coincidan 
 					{
-						comparar2=1;
-						do{
+						comparar3=1;
 						printf("Introduzca su nuevo pin:\n");
 						scanf("%d",&nuevopin);
-						printf("Confirme el nuevo pin:\n");
-						scanf("%d",&np);
-						
-								if(np=nuevopin)
-								{
-									comparar3=1;
 									clientes[numcliente].pintarjeta=nuevopin;
 									printf("Su codigo pin se ha cambiado con exito.\n");
-								}
-								intentos++;
-						}while (intentos<3 && comparar3==0);
-						if(comparar3==0)
-						{
-							printf("Ha agotado el numero de intentos.\n");
-							printf("Vuelva a intentarlo más tarde.\n");
-						}	    
 					}
-					intentos++;  
-			}while (intentos<3 && comparar2==0);
+					intentos2++;  
+			}while (intentos2<4 && comparar3==0);
+			if(comparar3==0)//tras superar el numero de intentos se acaba el programa.
+			{
+				printf("Vuelva a intentarlo mas tarde.\n");
+				return 0;
+			}
+			printf("¿Desea realizar otra operacion?\n");
+			
+			printf("Teclee 0 si desea realizar otra operacion\n");
+			printf("en caso contrario pulse 1.\n");
+			scanf("%d",&sn);
 		 break; 
 		case 4:
 			
-			printf("Su saldo actual es de:%.2f",&clientes[numcliente].saldo);
+			printf("Su saldo actual es de:%.2f\n",clientes[numcliente].saldo);
+		
+			printf("¿Desea realizar otra operacion?\n");
+			
+			printf("Teclee 0 si desea realizar otra operacion\n");
+			printf("en caso contrario pulse 1.\n");
+			scanf("%d",&sn);
 		break;
 		case 5:
 			{
@@ -180,20 +194,29 @@ int main()
 				printf(" a las que puede realizar una tranferencia.\n");
 				for(i=0;i<12;i++)
 				{
-					printf("%i:  %s\n",i+1,clientes[i].nombrecliente);
+					printf("%i:%s\n",i+1,clientes[i].nombrecliente);
 
 				}
-				printf("Teclee el nombre del usuario al que desee realizar una transferencia:");
+				printf("Teclee el numero que aparece delante del usuario al que desee realizar una transferencia:\n");
 
-				scanf("%s",clientes[clienreceptor].nombrecliente);
-
+				scanf("%i",&numcliente);
+				// he restado un 1 ya que al imprimir la lista de nombres habia definido
+				// i como 0.
+				numcliente=numcliente-1;
+				
 				printf("Escriba la cantidad que desee transferir:\n");
 
 				scanf("%f",&cantidad);
 				
-				clientes[numcliente].saldo=Transferencia(clientes[numcliente].saldo,clientes[clienreceptor].saldo,cantidad);
+				clientes[numcliente].saldo=transferencia(clientes[numcliente].saldo,clientes[clienreceptor].saldo,cantidad);
 
 				printf("Se ha realizado la transferencia correctamente.\n");
+				printf("Su nuevo saldo es %.2f.\n",clientes[numcliente].saldo);
+				
+				printf("¿Desea realizar otra operacion?\n");
+				printf("Teclee 0 si desea realizar otra operacion\n");
+				printf("en caso contrario pulse 1.\n");
+				scanf("%d",&sn);
 
 				break;	
 
@@ -210,7 +233,7 @@ int main()
 					i=0;
 					while(i<j)
 					{
-						fprintf(pf,"%i  %[^\t]\t%d\t%d\t%f\n",i+1,clientes[i].nombrecliente,&clientes[i].numerotarjeta,&clientes[i].pintarjeta,&clientes[i].saldo);
+						fprintf(pf,"%i  %[^;];%d;%d;%f\n",i+1,clientes[i].nombrecliente,&clientes[i].numerotarjeta,&clientes[i].pintarjeta,&clientes[i].saldo);
 						i++;
 					}
 					fclose(pf);
@@ -221,6 +244,12 @@ int main()
 
 				printf("Opcion incorrecta\n");
 			break;							 	
+	}
+	}while(sn==0 && operacion!=6);
+	if(sn==1)
+	{
+		printf("¡Hasta pronto!\n");
+		printf("Esperamos que haya disfrutado de nuestros servicios.\n");
 	}
 	return 0;
 }
@@ -233,7 +262,7 @@ float saldoTarjeta(float retirada,float ingreso,float saldoactual)
 }
 	
 //Esta funcion realiza los cambios de saldo tras una transferencia.
-float Tranferencia(float saldoemisor,float saldoreceptor,float transf)
+float transferencia(float saldoemisor,float saldoreceptor,float transf)
 {
 	saldoemisor=saldoemisor - transf;
 	saldoreceptor=saldoreceptor +transf;
