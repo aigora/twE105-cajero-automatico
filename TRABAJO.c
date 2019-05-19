@@ -71,12 +71,17 @@ int main()
 		printf("El numero de tarjeta es correcto.\n");	
 		}
 		}
-	if(comparar==0)
-		{
-			printf("El numero de tarjeta es incorrecto.\n");
-		}
+
 	intentos++;	
 	}while(intentos<3 && comparar==0);
+		if(comparar==0)
+		{
+			printf("Ha agotado el numero de intentos.\n");
+			printf("Vuelva a intentarlo mas tarde.\n");
+			printf("Procedemos a la retirada de la tarjeta.\n");
+			return 0;
+			
+		}
 	//le pedimos el pin al usuario y tiene tres intentos para introducirlo correctamente.
 	do{ 
 			printf("Introduzca el pin:\n "); 
@@ -115,6 +120,8 @@ int main()
 	printf("5-Realizar una transferencia:\n");
 
 	printf("6-Salir:\n");
+	
+	printf("Teclee el numero que aperece delante de la opcion deseada.\n");
 
 	scanf("%i",&operacion);
 	
