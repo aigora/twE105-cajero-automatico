@@ -88,13 +88,13 @@ int main()
 			scanf("%d", &pin); 
 			if(pin==clientes[numcliente].pintarjeta)
 			{
-				comparar2=1;
+				comparar=1;
 			printf("\n El pin es correcto.\n");
 			printf("Bienvenido.\n");
 		    } 
 		    intentos++;
-			}while (intentos<3 && comparar2==0);
-		if(comparar2==0)
+			}while (intentos<3 && comparar==0);
+		if(comparar==0)
 			{
 				printf("Ha superado el numero de intentos.\n");
 				printf("Vuelva a intentarlo mas tarde.\n");
