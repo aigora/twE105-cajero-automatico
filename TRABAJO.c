@@ -59,7 +59,7 @@ int main()
 	printf("Iniciar sesion:\n");
 	//primero introduce la tarjeta y verificamos que el numero de tarjeta existe en nuestro cajero.
 	do{
-	printf("Introduce el numero de tu tarjeta.\n");
+	printf("Introduce el numero de tu tarjeta:\n");
 	scanf("%d",&nt);
 	for(k=0;k<12;k++)
 		{
