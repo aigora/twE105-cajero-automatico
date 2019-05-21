@@ -8,7 +8,7 @@
 
 #include <unistd.h>
 
-#define N 100
+#define N 12
 
 typedef struct{
 	char nombrecliente[N];
@@ -29,9 +29,8 @@ int main()
 	float cantidad, cantidad2;
 	int numcliente=0;//para guardar el cliente que ha entrado en el banco
 	int nt;//numero de tarjeta introducido por el usuario al iniciar sesion.
-	int comparar;
-	int comparar2;
-	int comparar3;
+	int comparar=0;
+	int comparar3=0;
 	int clienreceptor=0;//para guardar al cliente al que se le va a realizar la tranferencia
 	int nuevopin,np,pin;
 	char operacion;
@@ -49,7 +48,7 @@ int main()
 	}
 	else
 	{
-		while(fscanf(pf,"%[^;];%d;%d;%f\n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
+		while(fscanf(pf,"%[^;];%d;%d;%f  \n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
 		{
 			j++;
 		}
@@ -61,20 +60,20 @@ int main()
 	do{
 	printf("Introduce el numero de tu tarjeta:\n");
 	scanf("%d",&nt);
-	for(k=0;k<12;k++)
+	for(k=0;k<N;k++)
 		{
 	
 		if(nt==clientes[k].numerotarjeta)
 		{
 			comparar=1;
-			numcliente=k;
+			numcliente=k;//asigno numcliente al cliente que ha entrado en el cajero.
 		printf("El numero de tarjeta es correcto.\n");	
 		}
 		}
 
 	intentos++;	
 	}while(intentos<3 && comparar==0);
-		if(comparar==0)
+		if(comparar==0)// si se agotan los intentos se acaba el programa.
 		{
 			printf("Ha agotado el numero de intentos.\n");
 			printf("Vuelva a intentarlo mas tarde.\n");
@@ -82,6 +81,9 @@ int main()
 			return 0;
 			
 		}
+	//les asigno el 0 otra vez para usarlos para verificar el pin.	
+	comparar=0;	
+	intentos=0;
 	//le pedimos el pin al usuario y tiene tres intentos para introducirlo correctamente.
 	do{ 
 			printf("Introduzca el pin:\n "); 
@@ -94,12 +96,13 @@ int main()
 		    } 
 		    intentos++;
 			}while (intentos<3 && comparar==0);
-		if(comparar==0)
+		if(comparar==0)// si se agotan los intentos se acaba el programa.
 			{
 				printf("Ha superado el numero de intentos.\n");
 				printf("Vuelva a intentarlo mas tarde.\n");
 				return 0;
 			}
+			comparar=0;
 	//este do-while lo he puesto para que tras cada operacion menos la opcion salir me de la posibilidad de realizar otra operacion.
 	do{
 	
@@ -132,16 +135,23 @@ int main()
 			do{
 			printf("Introducir cantidad que desea retirar:\n"); 
 			scanf("%f", &cantidad);
-			if(cantidad<=clientes[numcliente].saldo)
+			if(cantidad<=clientes[numcliente].saldo)//comprobamos que la cantidad que desea retirar esta disponible.
 					{
+						comparar=1;
 				    clientes[numcliente].saldo=saldoTarjeta(cantidad,0,clientes[numcliente].saldo); 
 					printf("Procedamos a la retirada de %.2f.\n",cantidad);
 					printf("Tras la retirada dispone de %.2f\n",clientes[numcliente].saldo);
 				    }
 			intentos++;  
-			}while (intentos<3 && cantidad>clientes[i].saldo);
-			// en las 5 primeras opciones del menu hemos puesto la opcion de realizar otra 
+			}while (intentos<3 && comparar==0);
+			if (comparar==0);
+			{
+				printf("No dispone de las cantidades introducidas.\n");
+				printf("Vuela a intentarlo mas tarde.\n");
+			}
+			// en las 5 primeras opciones del menu tras realizar la operacion,hemos puesto la opcion de realizar otra 
 			//operacion con un do-while.
+			
 			printf("¿Desea realizar otra operacion?\n");
 			printf("Teclee 0 si desea realizar otra operacion\n");
 			printf("en caso contrario pulse 1.\n");
@@ -164,7 +174,7 @@ int main()
 			do{ 
 				printf("Escriba su pin actual.\n"); 
 				scanf("%i", &pin2); 
-					if(pin2==clientes[numcliente].pintarjeta) //en caso de que los dos pines coincidan 
+					if(pin2==clientes[numcliente].pintarjeta) //en caso de que el pin introducido coincida con el de la tarjeta.
 					{
 						comparar3=1;
 						printf("Introduzca su nuevo pin:\n");
@@ -199,7 +209,7 @@ int main()
 			{
 				printf("Se le presentara una lista en pantalla con los nombres de las personas\n");
 				printf(" a las que puede realizar una tranferencia.\n");
-				for(i=0;i<12;i++)
+				for(i=0;i<N;i++)
 				{
 					printf("%i:%s\n",i+1,clientes[i].nombrecliente);
 
