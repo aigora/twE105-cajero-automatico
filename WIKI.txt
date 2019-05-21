@@ -1,0 +1,10 @@
+OBJETIVOS INICIALES ----- OBJETIVOS FINALES
+RESUMEN 
+Se pretende crear un simulador que imite el funcionamiento básico de un cajero automático. Hemos detallado las funcionalidades del programa como lectura de tarjetas, introducción de código pin y además de ello la realización de distintos servicios que, tras comprobar que tanto la tarjeta como el código pin son correctos , nos muestra en un menú las distintas opciones que podemos realizar en nuestra cuenta como : Retirada e ingreso de efectivo, cambio de código pin, mostrar saldo actual de la cuenta… A continuación explicaremos en que consiste cada una de estas opciones con mayor detalle.
+Retirar efectivo: Si elegimos esta opción lo primero que nos pide el programa es la cantidad de efectivo que queremos retirar. Si la cantidad que introducimos es mayor que el saldo nos pondrá: “Cantidad no disponible”. Si la cantidad que se desea retirar es menor que el saldo procede a la retirada del efectivo.
+Ingresar efectivo: Si queremos realizar esta acción lo único que debemos hacer es introducir la cantidad de efectivo que queremos ingresar, a continuación se modificará el nuevo saldo con la entrada del efectivo y por último mostrará el nuevo saldo de la cuenta tras el ingreso posteriormente realizado.
+Cambio de pin: Si queremos cambiar nuestro pin, al elegir esta opción nos muestra que debemos introducir el pin actual, tendremos 3 intentos, sin en esos 3 intentos no acierta el programa finalizará. Si acertamos el número ( de 4 dígitos ) nos mostrará que nuestro pin es correcto y a continuación debemos introducir el nuevo pin que deseamos tener.
+Consultar el saldo: Si elegimos esta opción nos mostrará el saldo actual de nuestra cuenta.
+Cabe destacar que tras acabar la acción propia de cada opción explicada anteriormente el programa nos permite elegir si queremos realizar otra operación o finalizar el programa.
+
+La finalidad de un cajero es automatizar y agilizar las tareas bancarias, sin necesidad de personal del banco. Permite extraer dinero, realizar ingresos, consultar saldo de cuenta, entre otras tareas; usando una tarjeta de crédito.
