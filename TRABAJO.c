@@ -8,7 +8,7 @@
 
 #include <unistd.h>
 
-#define N 100
+#define N 12
 
 typedef struct{
 	char nombrecliente[N];
@@ -48,7 +48,7 @@ int main()
 	}
 	else
 	{
-		while(fscanf(pf,"%[^;];%d;%d;%f",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
+		while(fscanf(pf,"%[^;];%d;%d;%f\n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
 		{
 			j++;
 		}
@@ -102,6 +102,7 @@ int main()
 				printf("Vuelva a intentarlo mas tarde.\n");
 				return 0;
 			}
+			comparar=0;
 	//este do-while lo he puesto para que tras cada operacion menos la opcion salir me de la posibilidad de realizar otra operacion.
 	do{
 	
@@ -136,13 +137,14 @@ int main()
 			scanf("%f", &cantidad);
 			if(cantidad<=clientes[numcliente].saldo)//comprobamos que la cantidad que desea retirar esta disponible.
 					{
+						comparar=1;
 				    clientes[numcliente].saldo=saldoTarjeta(cantidad,0,clientes[numcliente].saldo); 
 					printf("Procedamos a la retirada de %.2f.\n",cantidad);
 					printf("Tras la retirada dispone de %.2f\n",clientes[numcliente].saldo);
 				    }
 			intentos++;  
-			}while (intentos<3 && cantidad>clientes[i].saldo);
-			if (cantidad>clientes[i].saldo);
+			}while (intentos<3 && comparar==0);
+			if (comparar==0);
 			{
 				printf("No dispone de las cantidades introducidas.\n");
 				printf("Vuela a intentarlo mas tarde.\n");
