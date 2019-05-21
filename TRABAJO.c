@@ -48,7 +48,7 @@ int main()
 	}
 	else
 	{
-		while(fscanf(pf,"%[^;];%d;%d;%f\n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
+		while(fscanf(pf,"%[^;];%d;%d;%f  \n",clientes[j].nombrecliente,&clientes[j].numerotarjeta,&clientes[j].pintarjeta,&clientes[j].saldo)!=EOF)
 		{
 			j++;
 		}
